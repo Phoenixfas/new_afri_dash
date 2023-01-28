@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      roboto: ["Roboto", "sans-serif"], // Ensure fonts with spaces have " " surrounding it.
+      serif: ["Merriweather", "serif"],
+      sans: ["sans-serif"],
+    },
   },
   plugins: [],
 }
