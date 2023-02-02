@@ -1,20 +1,15 @@
 'use client'
 
 import React, { useState } from 'react'
-import Link from 'next/link';
-import { useAppDispatch } from '../../redux/hooks';
-import { toggleBlogModal } from '../../redux/slices/blogModalToggleSlice';
-import { changeActiveBlog } from '../../redux/slices/activeBlogSlice';
 import { IoSearchOutline } from 'react-icons/io5'
 import { useQuery } from "@apollo/client";
-import { GET_ARTICLES } from '../../graphql/queries/articleQueries';
+import { GET_SUBSCRIBERS } from '../../graphql/queries/subscriberQueries';
 
-export default function BlogSearch() {
-    const dispatch = useAppDispatch();
+export default function NewsletterSearch() {
 
     const [filteredData, setFilteredData] = useState([]);
     const [word, setWord] = useState("");
-    const { data, loading, error } = useQuery(GET_ARTICLES);
+    const { data, loading, error } = useQuery(GET_SUBSCRIBERS);
     
 
 
@@ -28,7 +23,7 @@ export default function BlogSearch() {
           setWord("")
         }
 
-        setFilteredData( data.articles.filter((article: any) => article.title.toLowerCase().includes(keyword.toLowerCase())))
+        setFilteredData( data.subscribers.filter((subscriber: any) => subscriber.email.toLowerCase().includes(keyword.toLowerCase())))
         setWord(keyword)
         
       }
@@ -58,8 +53,6 @@ export default function BlogSearch() {
                 {data && filteredData.slice(0, 10).map((blog: any) => (
                     <div className='px-5 py-3 duration-300 hover:bg-gray-100 hover:shadow-md hover:rounded-xl cursor-pointer' key={blog.id}>
                         <p id='blog-search' onClick={() => {
-                            dispatch(toggleBlogModal())
-                            dispatch(changeActiveBlog(blog))
                             clearSearch()
                             }} 
                         >

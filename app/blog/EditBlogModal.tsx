@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
-import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { toggleBlogAddModal } from '../redux/slices/blogAddModalToggleSlice'
+import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { toggleBlogAddModal } from '../../redux/slices/blogAddModalToggleSlice'
 import { GrClose } from 'react-icons/gr'
 import { FaPlus } from 'react-icons/fa'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -21,37 +21,63 @@ export default function EditBlogModal() {
     const dispatch = useAppDispatch()
     const blogAddModalToggle = useAppSelector(state => state.blogAddModalToggle.value)
 
+    const [err, setErr] = useState<any>("")
+
     const [title, setTitle] = useState("")
-    const [image, setImage] = useState("")
     const [desc, setDesc] = useState("")
     const [markdown, setMarkdown] = useState("")
 
     const [addArticle, {data, loading, error}] = useMutation(ADD_ARTICLE)
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(title === "" || desc === "") {
-            alert("Please fill in all fields")
+            setErr("Please fill in all fields")
+            return
         }
 
-        addArticle({
-            variables: {
-                title,
-                image,
-                desc,
-                markdown
-            },
+        // @ts-ignore
+        const img: any = document.getElementById("image").files[0]
+        const imgData = new FormData()
+        imgData.append('file', img)
+        imgData.append('upload_preset', 'afriopia')
+
+        const res = await fetch('https://api.cloudinary.com/v1_1/drp73bqti/image/upload', {
+            method: 'POST',
+            body: imgData
         })
-        setTitle("")
-        setImage("")
-        setDesc("")
-        setMarkdown("")
-        dispatch(toggleBlogAddModal())
+        if(!res.ok) {
+            setErr("Please upload an image")
+            return
+        }
+        const json = await res.json()
+
+        if(json.secure_url === "") {
+            setErr("Please upload an image")
+            return
+        }
+        if(json.secure_url !== "") {
+            setErr("")
+            const image = json.secure_url
+            addArticle({
+                variables: {
+                    title,
+                    image,
+                    desc,
+                    markdown
+                },
+                refetchQueries: [{query: GET_ARTICLES}]
+            })
+            setTitle("")
+            setDesc("")
+            setMarkdown("")
+            dispatch(toggleBlogAddModal())
+        }
     }
 
-    if(loading) console.log("loading")
-    if(error) console.log(error)
-    if(data) console.log(data)
+    // if(loading) console.log("loading")
+    // if(error) console.log(error)
+    // if(data) console.log(data)
 
   return (
     <>
@@ -64,6 +90,7 @@ export default function EditBlogModal() {
                     </div>
                     <div className=' w-full'>
                         <h1 className='text-3xl font-bold text-center mb-10'>Add New Blog</h1>
+                        {err && <p className="text-red-500 text-center mb-5">{err}</p>}
                         <form onSubmit={onSubmit} className="flex flex-col">
                             <div className="w-full flex flex-col mb-5">
                                 <label>Title</label>
@@ -71,7 +98,7 @@ export default function EditBlogModal() {
                             </div>
                             <div className="w-full flex flex-col mb-5">
                                 <label>Image Link</label>
-                                <input placeholder="Enter Article Cover Image Link" type="text" className="p-3 pl-0 text-md border-b-2 border-gray-300 focus:border-[#489b42] duration-300 outline-none" id="image" value={image} onChange={(e)=> setImage(e.target.value)} />
+                                <input placeholder="Enter Article Cover Image Link" type="file" accept="image/*" className="p-3 pl-0 text-md border-b-2 border-gray-300 focus:border-[#489b42] duration-300 outline-none" id="image" />
                             </div>
                             <div className="w-full flex flex-col mb-5">
                                 <label>Description</label>
