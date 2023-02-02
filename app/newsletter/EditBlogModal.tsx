@@ -86,8 +86,7 @@ export default function EditBlogModal() {
                 fetch("https://api.afriopia.com/newsletter", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        'Authorization': `Bearer ${token}`
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         image,
