@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { toggleRegModal } from '../../redux/slices/regModalToggleSlice';
-import { changeActiveStartup } from '../../redux/slices/activeStartupSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { toggleRegModal } from '../../../redux/slices/regModalToggleSlice';
+import { changeActiveStartup } from '../../../redux/slices/activeStartupSlice';
 import { IoSearchOutline } from 'react-icons/io5'
 
 export default function RegSearch({path} : any) {
@@ -24,7 +24,7 @@ export default function RegSearch({path} : any) {
             }
         }
         const fetchData = async () => {
-            const res = await fetch(`https://api.afriopia.com/${path}`, config)
+            const res = await fetch(`https://api.afriopia.com/business/activity/${path}`, config)
             const data = await res.json()
             setData(data.data)
         }
@@ -41,7 +41,7 @@ export default function RegSearch({path} : any) {
           setWord("")
         }
 
-        setFilteredData( data.filter((reg: any) => reg.company_name.toLowerCase().includes(keyword.toLowerCase())))
+        setFilteredData( data.filter((reg: any) => reg.company.toLowerCase().includes(keyword.toLowerCase())))
         setWord(keyword)
         
       }
@@ -76,7 +76,7 @@ export default function RegSearch({path} : any) {
                             clearSearch()
                             }} 
                         >
-                            {reg.company_name.charAt(0).toUpperCase() + reg.company_name.slice(1)}
+                            {reg.company.charAt(0).toUpperCase() + reg.company.slice(1)}
                         </p>
                     </div>
                 ))}

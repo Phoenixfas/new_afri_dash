@@ -91,10 +91,10 @@ export default function Sidebar() {
                     {isOpen && <p className='duration-300'>Vendors</p>}
                 </div>
             </Link>
-            <Link href='/startups' onClick={() => setActive('startups')} title="startups">
+            <Link href='/startups' onClick={() => setActive('startups')} title="Business Corner">
                 <div className={`flex h-12 rounded-lg duration-300 hover:bg-[#489b42] ${active==='startups' ? 'bg-[#489b42]' : ''} items-center text-white gap-5 ${isOpen ? "p-4" : ""}`}>
                     <IoBulbSharp className={`${isOpen ? '' : 'flex-1'}`} size={20}/>
-                    {isOpen && <p className='duration-300'>Startups</p>}
+                    {isOpen && <p className='duration-300'>Business Corner</p>}
                 </div>
             </Link>
             <Link href='/participants' onClick={() => setActive('participants')} title="participants">

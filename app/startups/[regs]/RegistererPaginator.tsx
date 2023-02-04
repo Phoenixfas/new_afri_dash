@@ -3,7 +3,7 @@ import React,{useEffect, useState} from 'react'
 import ReactPaginate from "react-paginate";
 import RegisterersList from './RegisterersList';
 import RegisterersLoading from './RegistersLoading';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../../redux/hooks';
 
 
 interface RegistererPaginatorProps {
@@ -25,7 +25,7 @@ export default function RegistererPaginator({path}: any) {
             }
         }
         const fetchData = async () => {
-            const res = await fetch(`https://api.afriopia.com/${path}`, config)
+            const res = await fetch(`https://api.afriopia.com/business/activity/${path}`, config)
             if (!res.ok) {
                 setError('Error fetching data')
                 setLoading(false)

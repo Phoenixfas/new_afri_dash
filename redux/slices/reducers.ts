@@ -12,6 +12,7 @@ import regModalToggleReducer from "./regModalToggleSlice";
 import activeStartupReducer from "./activeStartupSlice";
 import activeVendorReducer from "./activeVendorSlice";
 import loginReducer from "../auth/loginSlice";
+import activeActivityReducer from "./activeActivitySlice";
 
 export const rootReducer = combineReducers({
   // auth: authReducer,
@@ -27,6 +28,7 @@ export const rootReducer = combineReducers({
   activeStartup: activeStartupReducer,
   activeVendor: activeVendorReducer,
   login: loginReducer,
+  activeActivity: activeActivityReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
