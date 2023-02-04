@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { AiFillFileAdd } from 'react-icons/ai'
 import { setSortBlogsByNewest } from '../../redux/slices/sortBlogsSlice'
 import { toggleBlogAddModal } from '../../redux/slices/blogAddModalToggleSlice'
-import RegSearch from './RegSearch'
+// import RegSearch from './RegSearch'
 
 export default function TopSection({path, title, desc}: any) {
     const dispatch = useAppDispatch()
