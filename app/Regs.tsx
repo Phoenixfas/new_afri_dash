@@ -12,7 +12,7 @@ export default function Regs() {
 
     const [boothVendors, setBoothVendors] = useState(0)
     const [approvedVendors, setApprovedVendors] = useState(0)
-    // const [startups, setStartups] = useState(0)
+    const [startups, setStartups] = useState(0)
     const [participants, setParticipants] = useState(0)
     const [workshops, setWorkshops] = useState(0)
     const [lanParties, setLanParties] = useState(0)
@@ -31,7 +31,7 @@ export default function Regs() {
             try{
                 const res = await Promise.all([
                     fetch('https://api.afriopia.com/booth-vendor', config),
-                    // fetch('https://api.afriopia.com/startup', config),
+                    fetch('https://api.afriopia.com/startup', config),
                     fetch('https://api.afriopia.com/participant', config),
                     fetch('https://api.afriopia.com/workshop', config),
                     fetch('https://api.afriopia.com/lanparty', config),
@@ -47,7 +47,7 @@ export default function Regs() {
                 setRegData(data)
                 setBoothVendors(data[0].length)
                 setApprovedVendors(data[0].filter((vendor: any) => vendor.approved).length)
-                // setStartups(data[1].data.length)
+                setStartups(data[1].data.length)
                 setParticipants(data[2].data.length)
                 setWorkshops(data[3].data.length)
                 setLanParties(data[4].data.length)
