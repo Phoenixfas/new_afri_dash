@@ -76,7 +76,7 @@ export default function Regs() {
                     <div className="text-2xl text-gray-600 text-center font-light">Total Vendors Registered</div>
                 </div>
             </Link>
-            <Link href='/vendors' className='flex-1' title='vendors'>
+            <Link href='/vendors/approved' className='flex-1' title='vendors'>
                 <div className="min-w-72  h-40 p-5 rounded-xl bg-white gap-3 hover:shadow-xl flex flex-col items-center justify-center">
                     <div className="text-6xl text-[#489b42] font-bold">{approvedVendors}</div>
                     <div className="text-2xl text-gray-600 text-center font-light">Paid and Approved Vendors</div>

@@ -75,8 +75,8 @@ export default function LoginForm() {
             </div>
             {error && <p className="text-red-500 text-center">{error}</p>}
             <form className="flex flex-col w-full" onSubmit={onSubmit}>
-                <input value={email} onChange={onChange} type="email" name="email" id="email" placeholder='email' className="mb-5 p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-[#489b42]" />
-                <input value={password} onChange={onChange} type="password" name="password" id="password" placeholder='password' className="mb-5 p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-[#489b42]" />
+                <input value={email} onChange={onChange} type="email" required name="email" id="email" placeholder='email' className="mb-5 p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-[#489b42]" />
+                <input value={password} onChange={onChange} type="password" required name="password" id="password" placeholder='password' className="mb-5 p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-[#489b42]" />
                 <button type="submit" className="bg-[#489b42] text-white p-2 rounded-lg">Login</button>
             </form>
         </div>
